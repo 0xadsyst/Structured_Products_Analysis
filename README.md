@@ -2,7 +2,7 @@
 
 ## Overview
 
-This repository provides the tools to backtest covered call and covered put vaults using data from GVol.backtest_vault
+This repository provides the tools to backtest covered call and covered put vaults using data from GVol.
 
 Note: The raw data retrieved from GVol is not included in this repository.
 
