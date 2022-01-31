@@ -71,16 +71,16 @@ for token, delta in [(token, delta) for token in tokens for delta in deltas]:
 
         open_date += timedelta(days = days_to_expiry)
 
-    for p in summary:
+    for p in summary:        
         sub_list_call = [1 + x['percentage_profit_loss_call'] for x in summary if x['open_date'] >= p['open_date']]
         vault_total_profit_loss_call = numpy.prod(sub_list_call) - 1
         p['vault_total_profit_loss_call'] = vault_total_profit_loss_call
-        p['vault_apy_call'] = vault_total_profit_loss_call * 365 / p['days_to_end_date']
+        p['vault_apy_call'] = numpy.sign(vault_total_profit_loss_call) * ((1 + abs(vault_total_profit_loss_call)) ** (365 / p['days_to_end_date']) - 1)
 
         sub_list_put = [1 + x['percentage_profit_loss_put'] for x in summary if x['open_date'] >= p['open_date']]
         vault_total_profit_loss_put = numpy.prod(sub_list_put) - 1
         p['vault_total_profit_loss_put'] = vault_total_profit_loss_put
-        p['vault_apy_put'] = vault_total_profit_loss_put * 365 / p['days_to_end_date']
+        p['vault_apy_put'] = numpy.sign(vault_total_profit_loss_put) * ((1 + abs(vault_total_profit_loss_put)) ** (365 / p['days_to_end_date']) - 1)
 
     f_out = 'data/' + token + '/output/' + token + '_' + str(delta) + '.csv'
 
